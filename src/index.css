@@ -1,0 +1,649 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.header {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #6522ff;
+  z-index: 1;
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header__link:hover {
+  color: #4c00ff;
+  transform: scale(1.1);
+}
+
+.menu__container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #333;
+  padding: 10px 20px;
+}
+
+.menu__item {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.menu__item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+
+.menu__icon {
+  margin-right: 5px;
+}
+
+.home__container {
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  flex: 1;
+}
+
+.home__container-title {
+  grid-area: 1 / 1 / 2 / 6;
+  justify-self: center;
+  align-self: center;
+}
+
+.home__container-image {
+  grid-area: 2 / 3 / 6 / 6;
+  padding: 30px;
+  align-self: center;
+}
+
+.home__container-image img {
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: 0.3s;
+  border-radius: 10px;
+  width: 90%;
+  justify-self: center;
+}
+
+.home__container-text {
+  grid-area: 2 / 1 / 6 / 3;
+  padding: 30px;
+  align-self: center;
+  text-align: center;
+}
+
+.home__container-text p {
+  text-align: left;
+  padding: 15px;
+}
+
+/* Página de Produtos */
+
+.produtos {
+  padding: 20px;
+  flex: 1;
+}
+
+.produtos__header {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.produtos__card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.produto-card {
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.produto-card:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+.produto-card h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.produto-card p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.produto-card .produto__info {
+  font-weight: bold;
+  color: #4c00ff;
+}
+
+.produto-card .produto__actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.produto-card .produto__btn {
+  background: linear-gradient(45deg, #4c00ff, #6522ff);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.produto-card .produto__btn:hover {
+  opacity: 0.8;
+}
+
+/* Página de Clientes */
+
+.clientes {
+  padding: 20px;
+  flex: 1;
+}
+
+.clientes__header {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.clientes__card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.cliente-card {
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cliente-card:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+.cliente-card h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.cliente-card p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.cliente-card .cliente__info {
+  font-weight: bold;
+  color: #4c00ff;
+}
+
+.cliente-card .cliente__actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.cliente-card .cliente__btn {
+  background: linear-gradient(45deg, #4c00ff, #6522ff);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cliente-card .cliente__btn:hover {
+  opacity: 0.8;
+}
+
+/* Página de Pedidos */
+
+.pedidos {
+  padding: 20px;
+  flex: 1;
+}
+
+.pedidos__header {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.pedidos__card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.pedido-card {
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pedido-card:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+.pedido-card h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.pedido-card p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.pedido-card .pedido__info {
+  font-weight: bold;
+  color: #4c00ff;
+}
+
+.pedido-card .pedido__actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.pedido-card .pedido__btn {
+  background: linear-gradient(45deg, #4c00ff, #6522ff);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.pedido-card .pedido__btn:hover {
+  opacity: 0.8;
+}
+
+/* Página de Vendedores */
+
+.vendedores {
+  padding: 20px;
+  flex: 1;
+}
+
+.vendedores__header {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.vendedores__card {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+
+.vendedor-card {
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.vendedor-card:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+.vendedor-card h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.vendedor-card p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.vendedor-card .vendedor__info {
+  font-weight: bold;
+  color: #4c00ff;
+}
+
+.vendedor-card .vendedor__actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.vendedor-card .vendedor__btn {
+  background: linear-gradient(45deg, #4c00ff, #6522ff);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.vendedor-card .vendedor__btn:hover {
+  opacity: 0.8;
+}
+
+/* Modal */
+
+.open__modal-button {
+  display: flex;
+  padding: 10px;
+  background-color: #6522ff;
+  color: white;
+  cursor: pointer;
+  justify-content: center;
+  border-radius: 25%;
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  bottom: 70px;
+  right: 20px;
+  z-index: 99;
+}
+
+.open__modal-button:hover {
+  transform: scale(1.1);
+}
+
+.modal__container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal__container-body {
+  background: white;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal__container-header {
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal__container-header b {
+  color: #4c00ff;
+}
+
+.modal__container-header svg {
+  cursor: pointer;
+  color: #333;
+  transition: 0.3s;
+}
+
+.modal__container-header svg:hover {
+  color: red;
+  transform: scale(1.1);
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input {
+  padding: 10px;
+}
+
+.modal__form-btn {
+  background: linear-gradient(45deg, #4c00ff, #6522ff);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.modal__form-btn:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+/* Cards Cliente, Vendedor, Produto e Pedido */
+
+.single__card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.2s ease-in-out;
+  max-width: 300px;
+}
+
+.single__card:hover {
+  transform: translateY(-5px);
+}
+
+.single__card-customer {
+  width: 100%;
+  font-size: 14px;
+  color: #333;
+}
+
+.single__card-customer b {
+  display: block;
+  margin-top: 5px;
+  color: #6522ff;
+}
+
+.single__card p {
+  margin: 5px 0;
+  font-weight: 500;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: linear-gradient(45deg, #4c00ff, #6522ff);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: scale(0.95);
+}
+
+/* Página de Contato */
+
+.contato {
+  padding: 20px;
+  flex: 1;
+}
+
+.contato__card {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 320px;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  transition: 0.3s;
+}
+
+.contato__card:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.contato__card img {
+  border-radius: 50%;
+  height: 120px;
+  object-fit: cover;
+  margin: 0 auto 15px;
+  max-width: 100%;
+  width: 320px;
+  margin: auto;
+  padding: 20px;
+}
+
+.contato__card-title {
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.contato__card-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  padding: 12px;
+  border-radius: 6px;
+  transition: 0.3s;
+  gap: 10px;
+}
+
+.contato__card-item:hover {
+  background: rgba(76, 0, 255, 0.1);
+}
+
+.contato__icon {
+  color: #4c00ff;
+  font-size: 22px;
+}
+
+.contato__card-btn {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background: linear-gradient(45deg, #4c00ff, #6522ff);
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+  border-radius: 8px;
+  transition: 0.3s;
+  margin-top: 10px;
+  transform: translateY(-2px);
+}
+
+.contato__card-btn:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
