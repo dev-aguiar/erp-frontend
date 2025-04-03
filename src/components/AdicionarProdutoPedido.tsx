@@ -12,6 +12,8 @@ interface AdicionarProdutoProps {
   closeModal: () => void;
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const AdicionarProduto = ({ pedidoId, closeModal }: AdicionarProdutoProps) => {
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [produtoSelecionado, setProdutoSelecionado] = useState<number | null>(
@@ -21,7 +23,7 @@ const AdicionarProduto = ({ pedidoId, closeModal }: AdicionarProdutoProps) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/produtos")
+      .get(`${API_URL}/produtos`)
       .then((res) => setProdutos(res.data))
       .catch((err) => console.error("Erro ao buscar produtos:", err));
   }, []);
@@ -29,7 +31,7 @@ const AdicionarProduto = ({ pedidoId, closeModal }: AdicionarProdutoProps) => {
   const adicionarProduto = async () => {
     if (produtoSelecionado && quantidade > 0) {
       try {
-        await axios.post(`http://localhost:8080/pedidos/${pedidoId}/produtos`, {
+        await axios.post(`${API_URL}/pedidos/${pedidoId}/produtos`, {
           produtoId: produtoSelecionado,
           quantidade,
         });
