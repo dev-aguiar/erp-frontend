@@ -2,51 +2,75 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Input } from "../components/inputs/Input";
-import { useProdutoDataMutate } from "../hooks/useProdutoDataMutate";
-import { ProdutoData } from "../interfaces/ProdutoData";
+import {
+  useProdutoDataMutate,
+  useProdutoDataUpdate,
+} from "../hooks/useProdutoDataMutate";
+import { ProdutoData, ProdutoRequest } from "../interfaces/ProdutoData";
 
 interface ModalProps {
   closeModal(): void;
+  produto?: ProdutoData;
 }
 
-export function ModalProduto({ closeModal }: ModalProps) {
-  const [nome, setNome] = useState("");
-  const [preco, setPreco] = useState(0);
-  const [quantidade, setQuantidade] = useState(0);
+export function ModalProduto({ closeModal, produto }: ModalProps) {
+  const isEdit = !!produto;
+
+  const [nome, setNome] = useState(produto?.nome ?? "");
+  const [preco, setPreco] = useState<number>(produto?.preco ?? 0);
+  const [quantidade, setQuantidade] = useState<number>(
+    produto?.quantidade ?? 0
+  );
+
   const { mutate, isSuccess, isPending } = useProdutoDataMutate();
+  const {
+    mutate: update,
+    isSuccess: isUpdateSuccess,
+    isPending: isUpdatePending,
+  } = useProdutoDataUpdate();
 
   const submit = () => {
-    const produtoData: ProdutoData = {
+    const data: ProdutoRequest = {
       nome,
-      preco,
-      quantidade,
+      preco: Number(preco),
+      quantidade: Number(quantidade),
     };
-    mutate(produtoData);
+
+    if (isEdit && produto) {
+      update({ id: produto.id, data });
+    } else {
+      mutate(data);
+    }
   };
 
   useEffect(() => {
-    if (!isSuccess) return;
-    closeModal();
-  }, [isSuccess, isPending]);
+    if (isSuccess || isUpdateSuccess) {
+      closeModal();
+    }
+  }, [isSuccess, isUpdateSuccess, closeModal]);
 
   return (
     <div className="modal__container">
       <div className="modal__container-body">
         <div className="modal__container-header">
-          Novo cliente
+          {isEdit ? "Editar produto" : "Novo produto"}
           <FontAwesomeIcon icon={faXmark} onClick={closeModal} />
         </div>
         <form className="modal__form">
           <Input label="Nome" value={nome} updateValue={setNome} />
-          <Input label="Preço" value={preco} updateValue={setPreco} />
+          <Input
+            label="Preço"
+            value={preco}
+            updateValue={(value) => setPreco(Number(value))}
+          />
           <Input
             label="Quantidade"
             value={quantidade}
-            updateValue={setQuantidade}
+            updateValue={(value) => setQuantidade(Number(value))}
           />
         </form>
         <button onClick={submit} className="modal__form-btn">
-          {isPending ? "Salvando..." : "Salvar"}
+          {isPending || isUpdatePending ? "Salvando..." : "Salvar"}
         </button>
       </div>
     </div>

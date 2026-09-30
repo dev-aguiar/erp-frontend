@@ -4,15 +4,18 @@ import { ItemPedidoData } from "../interfaces/ItemPedidoData";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const fetchData = async (): AxiosPromise<ItemPedidoData[]> => {
-  const response = axios.get(API_URL + "/item-pedidos");
+const fetchData = async (
+  pedidoId: number
+): AxiosPromise<ItemPedidoData[]> => {
+  const response = axios.get(API_URL + "/pedidos/" + pedidoId + "/itens");
   return response;
 };
 
-export function useItemPedidoData() {
+export function useItemPedidoData(pedidoId: number) {
   const query = useQuery({
-    queryFn: fetchData,
-    queryKey: ["itemPedido-data"],
+    queryFn: () => fetchData(pedidoId),
+    queryKey: ["itemPedido-data", pedidoId],
+    enabled: !!pedidoId,
     retry: 2,
   });
 

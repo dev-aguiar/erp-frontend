@@ -1,16 +1,40 @@
 import { useState } from "react";
 import { ProdutoCard } from "../components/cards/ProdutoCard";
 import { useProdutoData } from "../hooks/useProdutoData";
+import { useProdutoDataDelete } from "../hooks/useProdutoDataMutate";
 import { ModalProduto } from "../modals/ModalProduto";
+import { ProdutoData } from "../interfaces/ProdutoData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 
 const Produtos = () => {
   const { data } = useProdutoData();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { mutate: excluir } = useProdutoDataDelete();
 
-  const handleOpenModal = () => {
-    setIsModalOpen((prev) => !prev);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [produtoSelecionado, setProdutoSelecionado] = useState<
+    ProdutoData | undefined
+  >(undefined);
+
+  const abrirNovo = () => {
+    setProdutoSelecionado(undefined);
+    setIsModalOpen(true);
+  };
+
+  const abrirEdicao = (produto: ProdutoData) => {
+    setProdutoSelecionado(produto);
+    setIsModalOpen(true);
+  };
+
+  const fecharModal = () => {
+    setIsModalOpen(false);
+    setProdutoSelecionado(undefined);
+  };
+
+  const handleExcluir = (id: number) => {
+    if (window.confirm("Deseja excluir este produto?")) {
+      excluir(id);
+    }
   };
 
   return (
@@ -19,18 +43,22 @@ const Produtos = () => {
       <div className="produtos__card">
         {data?.map((produtoData) => (
           <ProdutoCard
+            key={produtoData.id}
             id={produtoData.id}
             nome={produtoData.nome}
             preco={produtoData.preco}
             quantidade={produtoData.quantidade}
-            itens={produtoData.itens}
+            onEditar={() => abrirEdicao(produtoData)}
+            onExcluir={() => handleExcluir(produtoData.id)}
           />
         ))}
-        {isModalOpen && <ModalProduto closeModal={handleOpenModal} />}
+        {isModalOpen && (
+          <ModalProduto closeModal={fecharModal} produto={produtoSelecionado} />
+        )}
         <FontAwesomeIcon
           className="open__modal-button"
           icon={faPlusSquare}
-          onClick={handleOpenModal}
+          onClick={abrirNovo}
         />
       </div>
     </div>

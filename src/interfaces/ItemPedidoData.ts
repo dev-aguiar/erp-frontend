@@ -1,10 +1,6 @@
-import { PedidoData } from "./PedidoData";
-import { ProdutoData } from "./ProdutoData";
-
 export interface ItemPedidoData {
   id: number;
-  pedido: PedidoData;
-  produto: ProdutoData;
+  produtoId: number;
   quantidade: number;
   valorUnitario: number;
 }

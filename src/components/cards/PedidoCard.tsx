@@ -8,10 +8,12 @@ interface PedidoCardProps {
     id: number;
     nome: string;
   };
-  dataPedido: Date;
+  dataPedido: string;
   formaPagamento: string;
   statusPedido: string;
   onAdicionarProduto: (pedidoId: number) => void;
+  onEditar: () => void;
+  onExcluir: () => void;
 }
 
 export function PedidoCard({
@@ -22,11 +24,12 @@ export function PedidoCard({
   formaPagamento,
   statusPedido,
   onAdicionarProduto,
+  onEditar,
+  onExcluir,
 }: PedidoCardProps) {
-  const dataFormatada =
-    dataPedido instanceof Date
-      ? dataPedido.toLocaleDateString()
-      : new Date(dataPedido + "T00:00:00").toLocaleDateString();
+  const dataFormatada = new Date(
+    dataPedido + "T00:00:00"
+  ).toLocaleDateString();
 
   return (
     <div className="single__card">
@@ -42,7 +45,13 @@ export function PedidoCard({
         <b>Pagamento: {formaPagamento}</b>
         <b>Status: {statusPedido}</b>
       </div>
-      <button onClick={() => onAdicionarProduto(id)}>Adicionar Produto</button>
+      <div className="single__card-actions">
+        <button onClick={() => onAdicionarProduto(id)}>Adicionar Produto</button>
+        <button onClick={onEditar}>Editar</button>
+        <button className="btn-excluir" onClick={onExcluir}>
+          Excluir
+        </button>
+      </div>
     </div>
   );
 }

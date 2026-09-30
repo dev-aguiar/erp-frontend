@@ -3,16 +3,18 @@ interface ProdutoCardProps {
   nome: string;
   preco: number;
   quantidade: number;
-  itens: {
-    id: number;
-    pedido: { id: number };
-    produto: { id: number; nome: string };
-    quantidade: number;
-    valorUnitario: number;
-  };
+  onEditar: () => void;
+  onExcluir: () => void;
 }
 
-export function ProdutoCard({ id, nome, preco, quantidade }: ProdutoCardProps) {
+export function ProdutoCard({
+  id,
+  nome,
+  preco,
+  quantidade,
+  onEditar,
+  onExcluir,
+}: ProdutoCardProps) {
   return (
     <div className="single__card">
       <div className="single__card-customer">
@@ -20,6 +22,12 @@ export function ProdutoCard({ id, nome, preco, quantidade }: ProdutoCardProps) {
         <p>Produto: {nome}</p>
         <p>Preço: {preco.toFixed(2)}</p>
         <p>Estoque: {quantidade}</p>
+        <div className="single__card-actions">
+          <button onClick={onEditar}>Editar</button>
+          <button className="btn-excluir" onClick={onExcluir}>
+            Excluir
+          </button>
+        </div>
       </div>
     </div>
   );

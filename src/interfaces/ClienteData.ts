@@ -1,4 +1,4 @@
-import { PedidoData } from "./PedidoData";
+import { PedidoResumido } from "./PedidoData";
 
 export interface ClienteData {
   id: number;
@@ -6,9 +6,12 @@ export interface ClienteData {
   email: string;
   telefone: string;
   endereco: string;
-  pedidos: PedidoData;
+  pedidos: PedidoResumido[];
 }
 
-export interface ClienteRef {
-  id: number;
+export interface ClienteRequest {
+  nome: string;
+  email: string;
+  telefone: string;
+  endereco: string;
 }

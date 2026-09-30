@@ -1,9 +1,10 @@
 export interface VendedorData {
   id: number;
   nome: string;
-  dataNascimento: Date;
+  dataNascimento: string;
 }
 
-export interface VendedorRef {
-  id: number;
+export interface VendedorRequest {
+  nome: string;
+  dataNascimento: string;
 }

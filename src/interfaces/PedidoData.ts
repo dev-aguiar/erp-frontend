@@ -1,5 +1,3 @@
-import { ItemPedidoData } from "./ItemPedidoData";
-
 export interface PedidoData {
   id: number;
   cliente: {
@@ -10,8 +8,21 @@ export interface PedidoData {
     id: number;
     nome: string;
   };
-  dataPedido: Date;
+  dataPedido: string;
   formaPagamento: string;
   statusPedido: string;
-  itens: ItemPedidoData[];
+}
+
+export interface PedidoResumido {
+  id: number;
+  dataPedido: string;
+  statusPedido: string;
+}
+
+export interface PedidoRequest {
+  clienteId: number;
+  vendedorId: number;
+  dataPedido: string;
+  statusPedido: string;
+  formaPagamento: string;
 }

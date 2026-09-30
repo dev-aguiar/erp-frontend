@@ -2,50 +2,70 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { DateInput, Input } from "../components/inputs/Input";
-import { useVendedorDataMutate } from "../hooks/usevendedorDataMutate";
-import { VendedorData } from "../interfaces/VendedorData";
+import {
+  useVendedorDataMutate,
+  useVendedorDataUpdate,
+} from "../hooks/usevendedorDataMutate";
+import { VendedorData, VendedorRequest } from "../interfaces/VendedorData";
 
 interface ModalProps {
   closeModal(): void;
+  vendedor?: VendedorData;
 }
 
-export function ModalVendedor({ closeModal }: ModalProps) {
-  const [nome, setNome] = useState("");
-  const [dataNascimento, setDataNascimento] = useState(new Date());
+export function ModalVendedor({ closeModal, vendedor }: ModalProps) {
+  const isEdit = !!vendedor;
+
+  const [nome, setNome] = useState(vendedor?.nome ?? "");
+  const [dataNascimento, setDataNascimento] = useState(
+    vendedor?.dataNascimento ?? ""
+  );
+
   const { mutate, isSuccess, isPending } = useVendedorDataMutate();
+  const {
+    mutate: update,
+    isSuccess: isUpdateSuccess,
+    isPending: isUpdatePending,
+  } = useVendedorDataUpdate();
 
   const submit = () => {
-    const vendedorData: VendedorData = {
-      nome,
-      dataNascimento,
-    };
-    mutate(vendedorData);
+    if (!nome || !dataNascimento) {
+      alert("Informe o nome e a data de nascimento.");
+      return;
+    }
+
+    const data: VendedorRequest = { nome, dataNascimento };
+
+    if (isEdit && vendedor) {
+      update({ id: vendedor.id, data });
+    } else {
+      mutate(data);
+    }
   };
 
   useEffect(() => {
-    if (!isSuccess) return;
-    closeModal();
-  }, [isSuccess, isPending]);
+    if (isSuccess || isUpdateSuccess) {
+      closeModal();
+    }
+  }, [isSuccess, isUpdateSuccess, closeModal]);
 
   return (
     <div className="modal__container">
       <div className="modal__container-body">
         <div className="modal__container-header">
-          Novo cliente
+          {isEdit ? "Editar vendedor" : "Novo vendedor"}
           <FontAwesomeIcon icon={faXmark} onClick={closeModal} />
         </div>
         <form className="modal__form">
           <Input label="Nome" value={nome} updateValue={setNome} />
           <DateInput
             label="Data de Nascimento"
-            value={dataNascimento.toISOString().split("T")[0]}
-            updateValue={(dateString: string) =>
-              setDataNascimento(new Date(dateString))
-            }
+            value={dataNascimento}
+            updateValue={setDataNascimento}
           />
         </form>
         <button onClick={submit} className="modal__form-btn">
-          {isPending ? "Salvando..." : "Salvar"}
+          {isPending || isUpdatePending ? "Salvando..." : "Salvar"}
         </button>
       </div>
     </div>
