@@ -3,20 +3,37 @@ import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PedidoCard } from "../components/cards/PedidoCard";
 import { usePedidoData } from "../hooks/usePedidoData";
+import { usePedidoDataDelete } from "../hooks/usePedidoDataMutate";
 import { ModalPedido } from "../modals/ModalPedido";
 import { ModalAdicionarProduto } from "../modals/ModalAdicionarProduto";
+import { PedidoData } from "../interfaces/PedidoData";
 
 const Pedidos = () => {
   const { data: pedidos } = usePedidoData();
+  const { mutate: excluir } = usePedidoDataDelete();
 
   const [isPedidoModalOpen, setPedidoModalOpen] = useState(false);
   const [isProdutoModalOpen, setProdutoModalOpen] = useState(false);
   const [pedidoSelecionado, setPedidoSelecionado] = useState<number | null>(
     null
   );
+  const [pedidoParaEditar, setPedidoParaEditar] = useState<
+    PedidoData | undefined
+  >(undefined);
 
-  const togglePedidoModal = () => {
-    setPedidoModalOpen((prev) => !prev);
+  const abrirNovoPedido = () => {
+    setPedidoParaEditar(undefined);
+    setPedidoModalOpen(true);
+  };
+
+  const abrirEdicaoPedido = (pedido: PedidoData) => {
+    setPedidoParaEditar(pedido);
+    setPedidoModalOpen(true);
+  };
+
+  const fecharPedidoModal = () => {
+    setPedidoModalOpen(false);
+    setPedidoParaEditar(undefined);
   };
 
   const openProdutoModal = (pedidoId: number) => {
@@ -27,6 +44,12 @@ const Pedidos = () => {
   const closeProdutoModal = () => {
     setProdutoModalOpen(false);
     setPedidoSelecionado(null);
+  };
+
+  const handleExcluir = (id: number) => {
+    if (window.confirm("Deseja excluir este pedido?")) {
+      excluir(id);
+    }
   };
 
   return (
@@ -43,10 +66,17 @@ const Pedidos = () => {
             formaPagamento={pedido.formaPagamento}
             statusPedido={pedido.statusPedido}
             onAdicionarProduto={openProdutoModal}
+            onEditar={() => abrirEdicaoPedido(pedido)}
+            onExcluir={() => handleExcluir(pedido.id)}
           />
         ))}
 
-        {isPedidoModalOpen && <ModalPedido closeModal={togglePedidoModal} />}
+        {isPedidoModalOpen && (
+          <ModalPedido
+            closeModal={fecharPedidoModal}
+            pedido={pedidoParaEditar}
+          />
+        )}
 
         {isProdutoModalOpen && pedidoSelecionado && (
           <ModalAdicionarProduto
@@ -58,7 +88,7 @@ const Pedidos = () => {
         <FontAwesomeIcon
           className="open__modal-button"
           icon={faCartPlus}
-          onClick={togglePedidoModal}
+          onClick={abrirNovoPedido}
         />
       </div>
     </div>

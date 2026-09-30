@@ -2,7 +2,7 @@ import axios, { AxiosPromise } from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { PedidoData } from "../interfaces/PedidoData";
 
-const API_URL = "http://localhost:8080";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const fetchData = async (): AxiosPromise<PedidoData[]> => {
   const response = axios.get(API_URL + "/pedidos");

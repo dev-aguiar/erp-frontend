@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import { usePedidoDataMutate } from "../hooks/usePedidoDataMutate";
-import { PedidoData } from "../interfaces/PedidoData";
+import {
+  usePedidoDataMutate,
+  usePedidoDataUpdate,
+} from "../hooks/usePedidoDataMutate";
+import { PedidoData, PedidoRequest } from "../interfaces/PedidoData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { DateInput, SelectInput } from "../components/inputs/Input";
@@ -11,54 +14,42 @@ import { useVendedorData } from "../hooks/useVendedorData";
 
 interface ModalProps {
   closeModal(): void;
+  pedido?: PedidoData;
 }
 
-export function ModalPedido({ closeModal }: ModalProps) {
-  const [clienteId, setClienteId] = useState<string>("");
-  const [vendedorId, setVendedorId] = useState<string>("");
+export function ModalPedido({ closeModal, pedido }: ModalProps) {
+  const isEdit = !!pedido;
 
+  const [clienteId, setClienteId] = useState<string>(
+    pedido ? String(pedido.cliente.id) : ""
+  );
+  const [vendedorId, setVendedorId] = useState<string>(
+    pedido ? String(pedido.vendedor.id) : ""
+  );
   const [formaPagamento, setFormaPagamento] = useState<string>(
-    Object.values(FormaPagamento)[0] || ""
+    pedido?.formaPagamento ?? Object.values(FormaPagamento)[0] ?? ""
   );
   const [statusPedido, setStatusPedido] = useState<string>(
-    Object.values(StatusPedido)[0] || ""
+    pedido?.statusPedido ?? Object.values(StatusPedido)[0] ?? ""
   );
-
-  const [dataPedido, setDataPedido] = useState<Date>(new Date());
-
-  const [clientes, setClientes] = useState<{ id: string; nome: string }[]>([]);
-  const [vendedores, setVendedores] = useState<{ id: string; nome: string }[]>(
-    []
+  const [dataPedido, setDataPedido] = useState<string>(
+    pedido?.dataPedido ?? new Date().toISOString().split("T")[0]
   );
 
   const { mutate, isSuccess, isPending } = usePedidoDataMutate();
+  const {
+    mutate: update,
+    isSuccess: isUpdateSuccess,
+    isPending: isUpdatePending,
+  } = usePedidoDataUpdate();
   const { data: clientesData } = useClienteData();
   const { data: vendedoresData } = useVendedorData();
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess || isUpdateSuccess) {
       closeModal();
     }
-  }, [isSuccess, closeModal]);
-
-  useEffect(() => {
-    if (clientesData) {
-      setClientes(
-        clientesData.map((cliente) => ({
-          id: cliente.id.toString(),
-          nome: cliente.nome,
-        }))
-      );
-    }
-    if (vendedoresData) {
-      setVendedores(
-        vendedoresData.map((vendedor) => ({
-          id: vendedor.id.toString(),
-          nome: vendedor.nome,
-        }))
-      );
-    }
-  }, [clientesData, vendedoresData]);
+  }, [isSuccess, isUpdateSuccess, closeModal]);
 
   const submit = () => {
     if (!clienteId || !vendedorId) {
@@ -66,24 +57,26 @@ export function ModalPedido({ closeModal }: ModalProps) {
       return;
     }
 
-    const pedidoData: PedidoData = {
-      id: 0,
+    const data: PedidoRequest = {
       clienteId: Number(clienteId),
       vendedorId: Number(vendedorId),
       dataPedido,
-      formaPagamento: formaPagamento,
-      statusPedido: statusPedido as StatusPedido,
+      formaPagamento,
+      statusPedido,
     };
 
-    console.log(pedidoData);
-    mutate(pedidoData);
+    if (isEdit && pedido) {
+      update({ id: pedido.id, data });
+    } else {
+      mutate(data);
+    }
   };
 
   return (
     <div className="modal__container">
       <div className="modal__container-body">
         <div className="modal__container-header">
-          Novo pedido
+          {isEdit ? "Editar pedido" : "Novo pedido"}
           <FontAwesomeIcon icon={faXmark} onClick={closeModal} />
         </div>
         <form className="modal__form">
@@ -92,9 +85,9 @@ export function ModalPedido({ closeModal }: ModalProps) {
             value={clienteId}
             updateValue={setClienteId}
             options={
-              clientes.length > 0
-                ? clientes.map((cliente) => cliente.id)
-                : ["Nenhum cliente cadastrado"]
+              clientesData && clientesData.length > 0
+                ? clientesData.map((cliente) => String(cliente.id))
+                : []
             }
           />
           <SelectInput
@@ -102,9 +95,9 @@ export function ModalPedido({ closeModal }: ModalProps) {
             value={vendedorId}
             updateValue={setVendedorId}
             options={
-              vendedores.length > 0
-                ? vendedores.map((vendedor) => vendedor.id)
-                : ["Sem vendedores cadastrados"]
+              vendedoresData && vendedoresData.length > 0
+                ? vendedoresData.map((vendedor) => String(vendedor.id))
+                : []
             }
           />
           <SelectInput
@@ -115,10 +108,8 @@ export function ModalPedido({ closeModal }: ModalProps) {
           />
           <DateInput
             label="Data do Pedido"
-            value={dataPedido.toISOString().split("T")[0]}
-            updateValue={(dateString: string) =>
-              setDataPedido(new Date(dateString))
-            }
+            value={dataPedido}
+            updateValue={setDataPedido}
           />
           <SelectInput
             label="Status do Pedido"
@@ -128,7 +119,7 @@ export function ModalPedido({ closeModal }: ModalProps) {
           />
         </form>
         <button onClick={submit} className="modal__form-btn">
-          {isPending ? "Salvando..." : "Salvar"}
+          {isPending || isUpdatePending ? "Salvando..." : "Salvar"}
         </button>
       </div>
     </div>

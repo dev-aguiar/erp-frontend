@@ -110,7 +110,6 @@ img {
   padding: 15px;
 }
 
-/* Página de Produtos */
 
 .produtos {
   padding: 20px;
@@ -184,7 +183,6 @@ img {
   opacity: 0.8;
 }
 
-/* Página de Clientes */
 
 .clientes {
   padding: 20px;
@@ -258,7 +256,6 @@ img {
   opacity: 0.8;
 }
 
-/* Página de Pedidos */
 
 .pedidos {
   padding: 20px;
@@ -332,7 +329,6 @@ img {
   opacity: 0.8;
 }
 
-/* Página de Vendedores */
 
 .vendedores {
   padding: 20px;
@@ -406,7 +402,6 @@ img {
   opacity: 0.8;
 }
 
-/* Modal */
 
 .open__modal-button {
   display: flex;
@@ -506,7 +501,6 @@ input {
   transform: scale(1.05);
 }
 
-/* Cards Cliente, Vendedor, Produto e Pedido */
 
 .single__card {
   background: #fff;
@@ -542,6 +536,14 @@ input {
   font-weight: 500;
 }
 
+.single__card-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
 button {
   margin-top: 10px;
   padding: 8px 12px;
@@ -559,7 +561,11 @@ button:hover {
   transform: scale(0.95);
 }
 
-/* Página de Contato */
+.btn-excluir:hover {
+  background: linear-gradient(45deg, #e00000, #ff3b3b);
+  opacity: 1;
+}
+
 
 .contato {
   padding: 20px;

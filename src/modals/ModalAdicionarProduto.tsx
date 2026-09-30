@@ -1,7 +1,9 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../components/inputs/Input";
+import { useProdutoData } from "../hooks/useProdutoData";
+import { useAdicionarProdutoPedido } from "../hooks/useAdicionarProdutoPedido";
 
 interface ModalAdicionarProdutoProps {
   pedidoId: number;
@@ -12,11 +14,29 @@ export function ModalAdicionarProduto({
   pedidoId,
   closeModal,
 }: ModalAdicionarProdutoProps) {
-  const [produtoId, setProdutoId] = useState("");
+  const [produtoId, setProdutoId] = useState<string>("");
+  const [quantidade, setQuantidade] = useState<number>(1);
+
+  const { data: produtos } = useProdutoData();
+  const { mutate, isSuccess, isPending } = useAdicionarProdutoPedido();
+
+  useEffect(() => {
+    if (isSuccess) {
+      closeModal();
+    }
+  }, [isSuccess, closeModal]);
 
   const handleAdicionar = () => {
-    console.log(`Adicionando produto ${produtoId} ao pedido ${pedidoId}`);
-    closeModal();
+    if (!produtoId || quantidade <= 0) {
+      alert("Selecione um produto e informe a quantidade.");
+      return;
+    }
+
+    mutate({
+      pedidoId,
+      produtoId: Number(produtoId),
+      quantidade,
+    });
   };
 
   return (
@@ -28,12 +48,29 @@ export function ModalAdicionarProduto({
           </h2>
           <FontAwesomeIcon icon={faXmark} onClick={closeModal} />
         </div>
-        <Input
-          label={"Id do Produto"}
-          value={produtoId}
-          updateValue={setProdutoId}
-        />
-        <button onClick={handleAdicionar}>Adicionar</button>
+        <form className="modal__form">
+          <label>Produto</label>
+          <select
+            value={produtoId}
+            onChange={(e) => setProdutoId(e.target.value)}
+            style={{ padding: "10px", borderRadius: "10px" }}
+          >
+            <option value="">Selecione um produto</option>
+            {produtos?.map((produto) => (
+              <option key={produto.id} value={produto.id}>
+                {produto.nome} - R$ {produto.preco.toFixed(2)}
+              </option>
+            ))}
+          </select>
+          <Input
+            label="Quantidade"
+            value={quantidade}
+            updateValue={(value) => setQuantidade(Number(value))}
+          />
+        </form>
+        <button onClick={handleAdicionar} className="modal__form-btn">
+          {isPending ? "Adicionando..." : "Adicionar"}
+        </button>
       </div>
     </div>
   );

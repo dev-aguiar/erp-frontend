@@ -1,15 +1,14 @@
+import { PedidoResumido } from "../../interfaces/PedidoData";
+
 interface ClienteCardProps {
   id: number;
   nome: string;
   email: string;
   telefone: string;
   endereco: string;
-  pedidos: Array<{
-    id: number;
-    dataPedido: Date;
-    formaPagamento: string;
-    statusPedido: string;
-  }>;
+  pedidos: PedidoResumido[];
+  onEditar: () => void;
+  onExcluir: () => void;
 }
 
 export function ClienteCard({
@@ -19,6 +18,8 @@ export function ClienteCard({
   telefone,
   endereco,
   pedidos,
+  onEditar,
+  onExcluir,
 }: ClienteCardProps) {
   return (
     <div className="single__card">
@@ -30,12 +31,16 @@ export function ClienteCard({
         <p>Endereço: {endereco}</p>
         {pedidos && pedidos.length > 0 ? (
           <div>
+            <p>Pedidos:</p>
             {pedidos.map((pedido) => (
               <div key={pedido.id}>
-                <p>Pedidos:</p>
                 <p>ID: {pedido.id}</p>
-                <p>Data: {pedido.dataPedido.toLocaleString()}</p>
-                <p>Pagamento: {pedido.formaPagamento}</p>
+                <p>
+                  Data:{" "}
+                  {new Date(
+                    pedido.dataPedido + "T00:00:00"
+                  ).toLocaleDateString()}
+                </p>
                 <p>Status: {pedido.statusPedido}</p>
               </div>
             ))}
@@ -43,6 +48,12 @@ export function ClienteCard({
         ) : (
           <p>Sem Pedidos</p>
         )}
+        <div className="single__card-actions">
+          <button onClick={onEditar}>Editar</button>
+          <button className="btn-excluir" onClick={onExcluir}>
+            Excluir
+          </button>
+        </div>
       </div>
     </div>
   );
