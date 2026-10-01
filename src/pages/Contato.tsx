@@ -1,6 +1,5 @@
 import {
   faGithub,
-  faJava,
   faLinkedin,
   faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
@@ -15,12 +14,7 @@ const Contato = () => {
         <img src="img.jpg" alt="André" style={{ width: "100%" }} />
         <h1>André Aguiar</h1>
         <p className="contato__card-title">
-          Desenvolvedor Back-End
-          <FontAwesomeIcon
-            icon={faJava}
-            className="contato__icon"
-            style={{ paddingLeft: "10px" }}
-          />
+          Desenvolvedor Full Stack
         </p>
         <Link
           to="mailto:andre.aguiar522@gmail.com"
