@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { PedidoItens } from "./PedidoItens";
+
 interface PedidoCardProps {
   id: number;
   cliente: {
@@ -27,6 +30,8 @@ export function PedidoCard({
   onEditar,
   onExcluir,
 }: PedidoCardProps) {
+  const [mostrarItens, setMostrarItens] = useState(false);
+
   const dataFormatada = new Date(
     dataPedido + "T00:00:00"
   ).toLocaleDateString();
@@ -44,8 +49,13 @@ export function PedidoCard({
         <b>Data: {dataFormatada}</b>
         <b>Pagamento: {formaPagamento}</b>
         <b>Status: {statusPedido}</b>
+
+        {mostrarItens && <PedidoItens pedidoId={id} />}
       </div>
       <div className="single__card-actions">
+        <button onClick={() => setMostrarItens((v) => !v)}>
+          {mostrarItens ? "Ocultar itens" : "Ver itens"}
+        </button>
         <button onClick={() => onAdicionarProduto(id)}>Adicionar Produto</button>
         <button onClick={onEditar}>Editar</button>
         <button className="btn-excluir" onClick={onExcluir}>
