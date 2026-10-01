@@ -17,7 +17,9 @@ export function ModalProduto({ closeModal, produto }: ModalProps) {
   const isEdit = !!produto;
 
   const [nome, setNome] = useState(produto?.nome ?? "");
-  const [preco, setPreco] = useState<number>(produto?.preco ?? 0);
+  const [preco, setPreco] = useState<string>(
+    produto ? String(produto.preco) : ""
+  );
   const [quantidade, setQuantidade] = useState<number>(
     produto?.quantidade ?? 0
   );
@@ -30,11 +32,17 @@ export function ModalProduto({ closeModal, produto }: ModalProps) {
   } = useProdutoDataUpdate();
 
   const submit = () => {
-    const data: ProdutoRequest = {
-      nome,
-      preco: Number(preco),
-      quantidade: Number(quantidade),
-    };
+    const precoNum = Number(preco.replace(",", "."));
+    if (isNaN(precoNum) || precoNum <= 0) {
+      alert("Informe um preço válido.");
+      return;
+    }
+
+     const data: ProdutoRequest = {
+       nome,
+      preco: precoNum,
+       quantidade: Number(quantidade),
+     };
 
     if (isEdit && produto) {
       update({ id: produto.id, data });
@@ -61,7 +69,7 @@ export function ModalProduto({ closeModal, produto }: ModalProps) {
           <Input
             label="Preço"
             value={preco}
-            updateValue={(value) => setPreco(Number(value))}
+            updateValue={setPreco}
           />
           <Input
             label="Quantidade"
