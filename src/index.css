@@ -329,6 +329,63 @@ img {
   opacity: 0.8;
 }
 
+.pedido__itens {
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #ddd;
+}
+
+.pedido__itens-info {
+  font-size: 14px;
+  color: #777;
+  font-style: italic;
+}
+
+.pedido__itens-lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 8px 0;
+  padding: 0;
+}
+
+.pedido__item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 10px;
+  font-size: 14px;
+  background: #f6f4ff;
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+.pedido__item-nome {
+  font-weight: 600;
+  color: #333;
+}
+
+.pedido__item-detalhe {
+  color: #555;
+}
+
+.pedido__item-detalhe strong {
+  color: #4c00ff;
+}
+
+.pedido__itens-total {
+  text-align: right;
+  margin-top: 8px;
+  font-size: 15px;
+  color: #333;
+}
+
+.pedido__itens-total strong {
+  color: #4c00ff;
+  font-size: 16px;
+}
 
 .vendedores {
   padding: 20px;
@@ -666,6 +723,7 @@ button:hover {
     gap: 4px 6px;
     padding: 8px 10px;
   }
+
   .menu__item {
     font-size: 14px;
     padding: 8px 10px;
@@ -675,14 +733,17 @@ button:hover {
     display: flex;
     flex-direction: column;
   }
+
   .home__container-title,
   .home__container-text,
   .home__container-image {
     padding: 16px;
   }
+
   .home__container-image img {
     width: 100%;
   }
+
   .home__container-text p {
     text-align: left;
     padding: 8px 0;
@@ -720,9 +781,19 @@ button:hover {
   .modal__container {
     padding: 16px;
   }
+
   .modal__container-body {
     max-height: 88vh;
     overflow-y: auto;
+  }
+
+  .pedido__item {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .pedido__item-detalhe {
+    font-size: 13px;
   }
 }
 
@@ -731,9 +802,11 @@ button:hover {
     font-size: 13px;
     padding: 6px 8px;
   }
+
   .menu__icon {
     margin-right: 3px;
   }
+
   .produtos__header,
   .clientes__header,
   .pedidos__header,
