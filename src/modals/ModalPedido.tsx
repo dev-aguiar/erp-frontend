@@ -46,6 +46,18 @@ export function ModalPedido({ closeModal, pedido }: ModalProps) {
   const { data: vendedoresData } = useVendedorData();
 
   useEffect(() => {
+    if (!isEdit && !clienteId && clientesData && clientesData.length > 0) {
+      setClienteId(String(clientesData[0].id));
+    }
+  }, [clientesData, isEdit, clienteId]);
+
+  useEffect(() => {
+    if (!isEdit && !vendedorId && vendedoresData && vendedoresData.length > 0) {
+      setVendedorId(String(vendedoresData[0].id));
+    }
+  }, [vendedoresData, isEdit, vendedorId]);
+
+  useEffect(() => {
     if (isSuccess || isUpdateSuccess) {
       closeModal();
     }
@@ -85,9 +97,10 @@ export function ModalPedido({ closeModal, pedido }: ModalProps) {
             value={clienteId}
             updateValue={setClienteId}
             options={
-              clientesData && clientesData.length > 0
-                ? clientesData.map((cliente) => String(cliente.id))
-                : []
+              clientesData?.map((cliente) => ({
+                value: String(cliente.id),
+                label: `${cliente.id} - ${cliente.nome}`,
+              })) ?? []
             }
           />
           <SelectInput
@@ -95,9 +108,10 @@ export function ModalPedido({ closeModal, pedido }: ModalProps) {
             value={vendedorId}
             updateValue={setVendedorId}
             options={
-              vendedoresData && vendedoresData.length > 0
-                ? vendedoresData.map((vendedor) => String(vendedor.id))
-                : []
+              vendedoresData?.map((vendedor) => ({
+                value: String(vendedor.id),
+                label: `${vendedor.id} - ${vendedor.nome}`,
+              })) ?? []
             }
           />
           <SelectInput
