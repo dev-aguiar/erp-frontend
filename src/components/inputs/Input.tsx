@@ -22,11 +22,13 @@ interface RadioProps {
   updateValue(value: boolean): void;
 }
 
+type SelectOption = string | { value: string; label: string };
+
 interface SelectInputProps {
   label: string;
   value: string;
   updateValue(value: string): void;
-  options: string[];
+  options: SelectOption[];
   disabled?: boolean;
 }
 
@@ -129,11 +131,17 @@ export const SelectInput = ({
           disabled={disabled}
           style={{ padding: "10px", borderRadius: "10px" }}
         >
-          {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
+          {options.map((option) => {
+            const opt =
+              typeof option === "string"
+                ? { value: option, label: option }
+                : option;
+            return (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            );
+          })}
         </select>
       </div>
     </div>
