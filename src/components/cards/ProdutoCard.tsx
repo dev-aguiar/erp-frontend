@@ -1,3 +1,5 @@
+import { formatBRL } from "../../utils/format";
+
 interface ProdutoCardProps {
   id: number;
   nome: string;
@@ -20,7 +22,7 @@ export function ProdutoCard({
       <div className="single__card-customer">
         <p>Código: {id}</p>
         <p>Produto: {nome}</p>
-        <p>Preço: {preco.toFixed(2)}</p>
+        <p>Preço: {formatBRL(preco)}</p>
         <p>Estoque: {quantidade}</p>
         <div className="single__card-actions">
           <button onClick={onEditar}>Editar</button>

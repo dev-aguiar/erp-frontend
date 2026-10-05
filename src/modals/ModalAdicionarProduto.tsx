@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Input } from "../components/inputs/Input";
 import { useProdutoData } from "../hooks/useProdutoData";
 import { useAdicionarProdutoPedido } from "../hooks/useAdicionarProdutoPedido";
+import { formatBRL } from "../utils/format";
 
 interface ModalAdicionarProdutoProps {
   pedidoId: number;
@@ -58,7 +59,7 @@ export function ModalAdicionarProduto({
             <option value="">Selecione um produto</option>
             {produtos?.map((produto) => (
               <option key={produto.id} value={produto.id}>
-                {produto.nome} - R$ {produto.preco.toFixed(2)}
+                {produto.nome} - {formatBRL(produto.preco)}
               </option>
             ))}
           </select>

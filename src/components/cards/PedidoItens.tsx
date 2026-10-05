@@ -1,12 +1,10 @@
 import { useItemPedidoData } from "../../hooks/useItemPedidoData";
 import { useProdutoData } from "../../hooks/useProdutoData";
+import { formatBRL } from "../../utils/format";
 
 interface PedidoItensProps {
   pedidoId: number;
 }
-
-const formatBRL = (valor: number) =>
-  valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
 export function PedidoItens({ pedidoId }: PedidoItensProps) {
   const { data: itens, isLoading } = useItemPedidoData(pedidoId);
