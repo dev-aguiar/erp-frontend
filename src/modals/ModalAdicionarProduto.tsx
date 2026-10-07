@@ -5,6 +5,7 @@ import { Input } from "../components/inputs/Input";
 import { useProdutoData } from "../hooks/useProdutoData";
 import { useAdicionarProdutoPedido } from "../hooks/useAdicionarProdutoPedido";
 import { formatBRL } from "../utils/format";
+import { toast } from "react-toastify";
 
 interface ModalAdicionarProdutoProps {
   pedidoId: number;
@@ -23,13 +24,14 @@ export function ModalAdicionarProduto({
 
   useEffect(() => {
     if (isSuccess) {
+      toast.success("Produto adicionado ao pedido com sucesso!")
       closeModal();
     }
   }, [isSuccess, closeModal]);
 
   const handleAdicionar = () => {
     if (!produtoId || quantidade <= 0) {
-      alert("Selecione um produto e informe a quantidade.");
+      toast.error("Selecione um produto e informe a quantidade.");
       return;
     }
 

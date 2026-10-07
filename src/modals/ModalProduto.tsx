@@ -7,6 +7,7 @@ import {
   useProdutoDataUpdate,
 } from "../hooks/useProdutoDataMutate";
 import { ProdutoData, ProdutoRequest } from "../interfaces/ProdutoData";
+import { toast } from "react-toastify";
 
 interface ModalProps {
   closeModal(): void;
@@ -34,7 +35,7 @@ export function ModalProduto({ closeModal, produto }: ModalProps) {
   const submit = () => {
     const precoNum = Number(preco.replace(",", "."));
     if (isNaN(precoNum) || precoNum <= 0) {
-      alert("Informe um preço válido.");
+      toast.error("Informe um preço válido.");
       return;
     }
 
@@ -53,6 +54,7 @@ export function ModalProduto({ closeModal, produto }: ModalProps) {
 
   useEffect(() => {
     if (isSuccess || isUpdateSuccess) {
+      toast.success(isEdit ? "Produto atualizado com sucesso!" : "Produto criado!")
       closeModal();
     }
   }, [isSuccess, isUpdateSuccess, closeModal]);

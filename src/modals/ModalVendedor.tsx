@@ -7,6 +7,7 @@ import {
   useVendedorDataUpdate,
 } from "../hooks/usevendedorDataMutate";
 import { VendedorData, VendedorRequest } from "../interfaces/VendedorData";
+import { toast } from "react-toastify";
 
 interface ModalProps {
   closeModal(): void;
@@ -30,7 +31,7 @@ export function ModalVendedor({ closeModal, vendedor }: ModalProps) {
 
   const submit = () => {
     if (!nome || !dataNascimento) {
-      alert("Informe o nome e a data de nascimento.");
+      toast.error("Informe o nome e a data de nascimento.");
       return;
     }
 
@@ -45,6 +46,7 @@ export function ModalVendedor({ closeModal, vendedor }: ModalProps) {
 
   useEffect(() => {
     if (isSuccess || isUpdateSuccess) {
+      toast.success(isEdit ? "Vendedor atualizado com sucesso!" : "Vendedor cadastrado!")
       closeModal();
     }
   }, [isSuccess, isUpdateSuccess, closeModal]);
