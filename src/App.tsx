@@ -8,6 +8,8 @@ import Produtos from "./pages/Produtos";
 import Clientes from "./pages/Clientes";
 import Pedidos from "./pages/Pedidos";
 import Vendedores from "./pages/Vendedores";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
       </Routes>
 
       <Footer />
+
+      <ToastContainer position="top-right" autoClose={3000} />
     </BrowserRouter>
   );
 }
