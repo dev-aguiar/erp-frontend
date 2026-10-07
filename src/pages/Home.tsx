@@ -12,7 +12,7 @@ const Home = () => {
       <div className="home__container-text">
         <p>
           Este sistema foi desenvolvido como um teste de conhecimentos em{" "}
-          <strong>Java, Spring e PostgreSQL</strong>.
+          <strong>Java, Spring, React e PostgreSQL</strong>.
         </p>
 
         <p>

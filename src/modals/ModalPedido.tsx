@@ -11,6 +11,7 @@ import { FormaPagamento } from "../enums/FormaPagamento";
 import { StatusPedido } from "../enums/StatusPedido";
 import { useClienteData } from "../hooks/useClienteData";
 import { useVendedorData } from "../hooks/useVendedorData";
+import { toast } from "react-toastify";
 
 interface ModalProps {
   closeModal(): void;
@@ -59,13 +60,14 @@ export function ModalPedido({ closeModal, pedido }: ModalProps) {
 
   useEffect(() => {
     if (isSuccess || isUpdateSuccess) {
+      toast.success(isEdit ? "Pedido atualizado!" : "Pedido cadastrado!");
       closeModal();
     }
   }, [isSuccess, isUpdateSuccess, closeModal]);
 
   const submit = () => {
     if (!clienteId || !vendedorId) {
-      alert("Selecione um cliente e um vendedor.");
+      toast.error("Selecione um cliente e um vendedor.");
       return;
     }
 
