@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -43,15 +43,14 @@ const Login = () => {
 
 	return (
 		<div className="flex min-h-screen font-sans">
-			{/* Painel da marca (desktop) */}
 			<aside className="hidden w-1/2 flex-col justify-between bg-gradient-to-br from-indigo-600 to-indigo-900 p-12 text-white lg:flex">
 				<div className="flex items-center gap-3">
 					<div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/15">
 						<FontAwesomeIcon icon={faCubes} className="text-lg" />
 					</div>
 					<span className="text-lg font-semibold tracking-tight">
-            ERP Dev Aguiar
-          </span>
+						ERP Dev Aguiar
+					</span>
 				</div>
 
 				<div className="max-w-md">
@@ -69,9 +68,9 @@ const Login = () => {
 							"Acesso seguro com autenticação",
 						].map((item) => (
 							<li key={item} className="flex items-center gap-3">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/15">
-                  <FontAwesomeIcon icon={faCheck} className="text-[10px]" />
-                </span>
+								<span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/15">
+									<FontAwesomeIcon icon={faCheck} className="text-[10px]" />
+								</span>
 								{item}
 							</li>
 						))}
@@ -83,17 +82,15 @@ const Login = () => {
 				</p>
 			</aside>
 
-			{/* Formulário */}
 			<main className="flex w-full items-center justify-center bg-slate-50 p-6 lg:w-1/2">
 				<div className="w-full max-w-sm">
-					{/* Marca no mobile */}
 					<div className="mb-8 flex items-center gap-3 lg:hidden">
 						<div className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600 text-white">
 							<FontAwesomeIcon icon={faCubes} className="text-lg" />
 						</div>
 						<span className="text-lg font-semibold tracking-tight text-slate-900">
-              ERP Dev Aguiar
-            </span>
+							ERP Dev Aguiar
+						</span>
 					</div>
 
 					<h1 className="text-2xl font-bold text-slate-900">
@@ -148,6 +145,15 @@ const Login = () => {
 							{isPending ? "Entrando..." : "Entrar"}
 						</button>
 					</form>
+					<p className="mt-6 text-center text-sm text-slate-500">
+						Não tem conta?{" "}
+						<Link
+							to="/register"
+							className="font-medium text-indigo-600 hover:text-indigo-700"
+						>
+							Cadastre-se
+						</Link>
+					</p>
 				</div>
 			</main>
 		</div>
