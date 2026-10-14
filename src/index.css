@@ -650,27 +650,6 @@ input {
   font-size: 22px;
 }
 
-.contato__card-btn {
-  border: none;
-  outline: 0;
-  padding: 12px;
-  color: white;
-  background: linear-gradient(45deg, #4c00ff, #6522ff);
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
-  border-radius: 8px;
-  transition: 0.3s;
-  margin-top: 10px;
-  transform: translateY(-2px);
-}
-
-.contato__card-btn:hover {
-  opacity: 0.9;
-  transform: scale(1.05);
-}
-
 .menu__logout {
   background: none;
   border: none;
