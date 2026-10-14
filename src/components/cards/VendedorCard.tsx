@@ -1,3 +1,5 @@
+import { Button } from "../ui/Button";
+
 interface VendedorCardProps {
   id: number;
   nome: string;
@@ -24,10 +26,12 @@ export function VendedorCard({
         <p>Nome: {nome}</p>
         <p>Data de Nascimento: {dataFormatada}</p>
         <div className="single__card-actions">
-          <button onClick={onEditar}>Editar</button>
-          <button className="btn-excluir" onClick={onExcluir}>
+          <Button variant="secondary" size="sm" onClick={onEditar}>
+            Editar
+          </Button>
+          <Button variant="danger" size="sm" onClick={onExcluir}>
             Excluir
-          </button>
+          </Button>
         </div>
       </div>
     </div>

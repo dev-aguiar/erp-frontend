@@ -8,6 +8,7 @@ import {
 } from "../hooks/usevendedorDataMutate";
 import { VendedorData, VendedorRequest } from "../interfaces/VendedorData";
 import { toast } from "react-toastify";
+import { Button } from "../components/ui/Button";
 
 interface ModalProps {
   closeModal(): void;
@@ -66,9 +67,13 @@ export function ModalVendedor({ closeModal, vendedor }: ModalProps) {
             updateValue={setDataNascimento}
           />
         </form>
-        <button onClick={submit} className="modal__form-btn">
+        <Button
+          fullWidth
+          onClick={submit}
+          disabled={isPending || isUpdatePending}
+        >
           {isPending || isUpdatePending ? "Salvando..." : "Salvar"}
-        </button>
+        </Button>
       </div>
     </div>
   );

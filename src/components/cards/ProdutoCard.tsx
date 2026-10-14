@@ -1,4 +1,5 @@
 import { formatBRL } from "../../utils/format";
+import { Button } from "../ui/Button";
 
 interface ProdutoCardProps {
   id: number;
@@ -25,10 +26,12 @@ export function ProdutoCard({
         <p>Preço: {formatBRL(preco)}</p>
         <p>Estoque: {quantidade}</p>
         <div className="single__card-actions">
-          <button onClick={onEditar}>Editar</button>
-          <button className="btn-excluir" onClick={onExcluir}>
+          <Button variant="secondary" size="sm" onClick={onEditar}>
+            Editar
+          </Button>
+          <Button variant="danger" size="sm" onClick={onExcluir}>
             Excluir
-          </button>
+          </Button>
         </div>
       </div>
     </div>
