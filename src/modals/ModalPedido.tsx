@@ -12,6 +12,7 @@ import { StatusPedido } from "../enums/StatusPedido";
 import { useClienteData } from "../hooks/useClienteData";
 import { useVendedorData } from "../hooks/useVendedorData";
 import { toast } from "react-toastify";
+import { Button } from "../components/ui/Button";
 
 interface ModalProps {
   closeModal(): void;
@@ -134,9 +135,13 @@ export function ModalPedido({ closeModal, pedido }: ModalProps) {
             options={Object.values(StatusPedido)}
           />
         </form>
-        <button onClick={submit} className="modal__form-btn">
+        <Button
+          fullWidth
+          onClick={submit}
+          disabled={isPending || isUpdatePending}
+        >
           {isPending || isUpdatePending ? "Salvando..." : "Salvar"}
-        </button>
+        </Button>
       </div>
     </div>
   );

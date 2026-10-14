@@ -8,6 +8,7 @@ import {
 } from "../hooks/useProdutoDataMutate";
 import { ProdutoData, ProdutoRequest } from "../interfaces/ProdutoData";
 import { toast } from "react-toastify";
+import { Button } from "../components/ui/Button";
 
 interface ModalProps {
   closeModal(): void;
@@ -79,9 +80,13 @@ export function ModalProduto({ closeModal, produto }: ModalProps) {
             updateValue={(value) => setQuantidade(Number(value))}
           />
         </form>
-        <button onClick={submit} className="modal__form-btn">
+        <Button
+          fullWidth
+          onClick={submit}
+          disabled={isPending || isUpdatePending}
+        >
           {isPending || isUpdatePending ? "Salvando..." : "Salvar"}
-        </button>
+        </Button>
       </div>
     </div>
   );

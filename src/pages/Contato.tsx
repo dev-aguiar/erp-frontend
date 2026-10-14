@@ -6,6 +6,7 @@ import {
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { Button } from "../components/ui/Button";
 
 const Contato = () => {
   return (
@@ -38,7 +39,7 @@ const Contato = () => {
           WhatsApp
         </Link>
         <p>
-          <button className="contato__card-btn">Encontrou um bug?</button>
+          <Button fullWidth>Encontrou um bug?</Button>
         </p>
       </div>
     </div>

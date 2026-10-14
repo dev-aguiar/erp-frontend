@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { PedidoItens } from "./PedidoItens";
+import { Button } from "../ui/Button";
 
 interface PedidoCardProps {
   id: number;
@@ -53,14 +54,22 @@ export function PedidoCard({
         {mostrarItens && <PedidoItens pedidoId={id} />}
       </div>
       <div className="single__card-actions">
-        <button onClick={() => setMostrarItens((v) => !v)}>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setMostrarItens((v) => !v)}
+        >
           {mostrarItens ? "Ocultar itens" : "Ver itens"}
-        </button>
-        <button onClick={() => onAdicionarProduto(id)}>Adicionar Produto</button>
-        <button onClick={onEditar}>Editar</button>
-        <button className="btn-excluir" onClick={onExcluir}>
+        </Button>
+        <Button variant="primary" size="sm" onClick={() => onAdicionarProduto(id)}>
+          Adicionar Produto
+        </Button>
+        <Button variant="secondary" size="sm" onClick={onEditar}>
+          Editar
+        </Button>
+        <Button variant="danger" size="sm" onClick={onExcluir}>
           Excluir
-        </button>
+        </Button>
       </div>
     </div>
   );

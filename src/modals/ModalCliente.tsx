@@ -7,6 +7,7 @@ import { ClienteData, ClienteRequest } from "../interfaces/ClienteData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Input } from "../components/inputs/Input";
+import { Button } from "../components/ui/Button";
 
 interface ModalProps {
   closeModal(): void;
@@ -57,9 +58,13 @@ export function ModalCliente({ closeModal, cliente }: ModalProps) {
           <Input label="Telefone" value={telefone} updateValue={setTelefone} />
           <Input label="Endereço" value={endereco} updateValue={setEndereco} />
         </form>
-        <button onClick={submit} className="modal__form-btn">
+        <Button
+          fullWidth
+          onClick={submit}
+          disabled={isPending || isUpdatePending}
+        >
           {isPending || isUpdatePending ? "Salvando..." : "Salvar"}
-        </button>
+        </Button>
       </div>
     </div>
   );

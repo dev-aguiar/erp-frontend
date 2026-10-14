@@ -6,6 +6,7 @@ import { useProdutoData } from "../hooks/useProdutoData";
 import { useAdicionarProdutoPedido } from "../hooks/useAdicionarProdutoPedido";
 import { formatBRL } from "../utils/format";
 import { toast } from "react-toastify";
+import { Button } from "../components/ui/Button";
 
 interface ModalAdicionarProdutoProps {
   pedidoId: number;
@@ -71,9 +72,9 @@ export function ModalAdicionarProduto({
             updateValue={(value) => setQuantidade(Number(value))}
           />
         </form>
-        <button onClick={handleAdicionar} className="modal__form-btn">
+        <Button fullWidth onClick={handleAdicionar} disabled={isPending}>
           {isPending ? "Adicionando..." : "Adicionar"}
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { PedidoResumido } from "../../interfaces/PedidoData";
+import { Button } from "../ui/Button";
 
 interface ClienteCardProps {
   id: number;
@@ -49,10 +50,12 @@ export function ClienteCard({
           <p>Sem Pedidos</p>
         )}
         <div className="single__card-actions">
-          <button onClick={onEditar}>Editar</button>
-          <button className="btn-excluir" onClick={onExcluir}>
+          <Button variant="secondary" size="sm" onClick={onEditar}>
+            Editar
+          </Button>
+          <Button variant="danger" size="sm" onClick={onExcluir}>
             Excluir
-          </button>
+          </Button>
         </div>
       </div>
     </div>
