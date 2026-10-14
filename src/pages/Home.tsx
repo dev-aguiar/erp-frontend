@@ -64,12 +64,13 @@ const Home = () => {
     },
   ];
 
+  const ultimosPedidos = pedidos
+    ? [...pedidos].sort((a, b) => b.id - a.id).slice(0, 5)
+    : [];
+
   return (
     <div>
-      <PageHeader
-        title="Bem-vindo(a) ao ERP"
-        subtitle="Visão geral do sistema"
-      />
+      <PageHeader title="Bem-vindo(a) ao ERP" subtitle="Visão geral do sistema" />
 
       <div className="grid gap-5 [grid-template-columns:repeat(auto-fill,minmax(220px,1fr))]">
         {kpis.map((kpi) => (
@@ -100,6 +101,65 @@ const Home = () => {
             </p>
           </Link>
         ))}
+      </div>
+
+      <div className="mt-8 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+        <div className="flex items-center justify-between border-b border-slate-100 px-5 py-4">
+          <h2 className="text-sm font-semibold text-slate-900">
+            Últimos pedidos
+          </h2>
+          <Link
+            to="/pedidos"
+            className="flex items-center gap-1 text-xs font-medium text-indigo-600 hover:text-indigo-700"
+          >
+            Ver todos
+            <FontAwesomeIcon icon={faArrowRight} />
+          </Link>
+        </div>
+
+        {ultimosPedidos.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-slate-100 text-left text-xs uppercase tracking-wide text-slate-400">
+                  <th className="px-5 py-3 font-medium">Pedido</th>
+                  <th className="px-5 py-3 font-medium">Cliente</th>
+                  <th className="px-5 py-3 font-medium">Data</th>
+                  <th className="px-5 py-3 font-medium">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ultimosPedidos.map((pedido) => (
+                  <tr
+                    key={pedido.id}
+                    className="border-b border-slate-50 last:border-0 hover:bg-slate-50"
+                  >
+                    <td className="px-5 py-3 font-medium text-slate-900">
+                      #{pedido.id}
+                    </td>
+                    <td className="px-5 py-3 text-slate-600">
+                      {pedido.cliente.nome}
+                    </td>
+                    <td className="px-5 py-3 text-slate-600">
+                      {new Date(
+                        pedido.dataPedido + "T00:00:00"
+                      ).toLocaleDateString()}
+                    </td>
+                    <td className="px-5 py-3">
+                      <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
+                        {pedido.statusPedido}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="px-5 py-10 text-center text-sm text-slate-400">
+            Nenhum pedido ainda.
+          </p>
+        )}
       </div>
     </div>
   );

@@ -14,6 +14,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Register from "./pages/Register";
 
 function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -24,7 +25,6 @@ function AppLayout() {
         <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
         <div className="flex min-h-screen flex-col lg:pl-64">
-          {/* Topbar (mobile) */}
           <header className="flex items-center gap-3 border-b border-slate-200 bg-white px-4 py-3 lg:hidden">
             <button
               onClick={() => setSidebarOpen(true)}
@@ -52,7 +52,7 @@ function AppLayout() {
           </main>
 
           <footer className="border-t border-slate-200 px-6 py-4 text-center text-xs text-slate-400">
-            Criado por André Aguiar · 2025
+            Criado por André Aguiar · 2026
           </footer>
         </div>
       </div>
@@ -66,6 +66,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/*" element={<AppLayout />} />
         </Routes>
 
