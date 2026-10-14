@@ -28,21 +28,21 @@ export function ClienteCard({
   return (
     <Card title={nome}>
       <dl className="space-y-2 text-sm">
-        <div className="flex justify-between gap-4">
+        <div>
           <dt className="text-slate-500">ID</dt>
           <dd className="font-medium text-slate-900">{id}</dd>
         </div>
-        <div className="flex justify-between gap-4">
+        <div>
           <dt className="text-slate-500">Telefone</dt>
           <dd className="font-medium text-slate-900">{telefone}</dd>
         </div>
-        <div className="flex justify-between gap-4">
+        <div>
           <dt className="text-slate-500">Email</dt>
           <dd className="font-medium text-slate-900">{email}</dd>
         </div>
-        <div className="flex justify-between gap-4">
+        <div>
           <dt className="text-slate-500">Endereço</dt>
-          <dd className="font-medium text-slate-900">{endereco}</dd>
+          <dd className="mt-0.5 font-medium text-slate-900">{endereco}</dd>
         </div>
       </dl>
 
