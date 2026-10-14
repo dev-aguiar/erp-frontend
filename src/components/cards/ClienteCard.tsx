@@ -1,5 +1,6 @@
 import { PedidoResumido } from "../../interfaces/PedidoData";
 import { Button } from "../ui/Button";
+import { Card } from "../ui/Card";
 
 interface ClienteCardProps {
   id: number;
@@ -23,41 +24,64 @@ export function ClienteCard({
   onExcluir,
 }: ClienteCardProps) {
   return (
-    <div className="single__card">
-      <div className="single__card-customer">
-        <p>ID: {id}</p>
-        <b>Cliente: {nome}</b>
-        <p>Telefone: {telefone}</p>
-        <p>Email: {email}</p>
-        <p>Endereço: {endereco}</p>
+    <Card title={nome}>
+      <dl className="space-y-2 text-sm">
+        <div className="flex justify-between gap-4">
+          <dt className="text-slate-500">ID</dt>
+          <dd className="font-medium text-slate-900">{id}</dd>
+        </div>
+        <div className="flex justify-between gap-4">
+          <dt className="text-slate-500">Telefone</dt>
+          <dd className="font-medium text-slate-900">{telefone}</dd>
+        </div>
+        <div className="flex justify-between gap-4">
+          <dt className="text-slate-500">Email</dt>
+          <dd className="font-medium text-slate-900">{email}</dd>
+        </div>
+        <div className="flex justify-between gap-4">
+          <dt className="text-slate-500">Endereço</dt>
+          <dd className="font-medium text-slate-900">{endereco}</dd>
+        </div>
+      </dl>
+
+      <div className="mt-4 border-t border-slate-100 pt-3">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+          Pedidos
+        </p>
         {pedidos && pedidos.length > 0 ? (
-          <div>
-            <p>Pedidos:</p>
+          <ul className="space-y-2">
             {pedidos.map((pedido) => (
-              <div key={pedido.id}>
-                <p>ID: {pedido.id}</p>
-                <p>
-                  Data:{" "}
+              <li
+                key={pedido.id}
+                className="flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2 text-xs"
+              >
+                <span className="font-medium text-slate-700">
+                  #{pedido.id}
+                </span>
+                <span className="text-slate-500">
                   {new Date(
                     pedido.dataPedido + "T00:00:00"
                   ).toLocaleDateString()}
-                </p>
-                <p>Status: {pedido.statusPedido}</p>
-              </div>
+                </span>
+                <span className="font-medium text-slate-700">
+                  {pedido.statusPedido}
+                </span>
+              </li>
             ))}
-          </div>
+          </ul>
         ) : (
-          <p>Sem Pedidos</p>
+          <p className="text-sm text-slate-400">Sem pedidos</p>
         )}
-        <div className="single__card-actions">
-          <Button variant="secondary" size="sm" onClick={onEditar}>
-            Editar
-          </Button>
-          <Button variant="danger" size="sm" onClick={onExcluir}>
-            Excluir
-          </Button>
-        </div>
       </div>
-    </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        <Button variant="secondary" size="sm" onClick={onEditar}>
+          Editar
+        </Button>
+        <Button variant="danger" size="sm" onClick={onExcluir}>
+          Excluir
+        </Button>
+      </div>
+    </Card>
   );
 }
