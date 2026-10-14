@@ -8,12 +8,15 @@ import Produtos from "./pages/Produtos";
 import Clientes from "./pages/Clientes";
 import Pedidos from "./pages/Pedidos";
 import Vendedores from "./pages/Vendedores";
+import Login from "./pages/Login";
+import PrivateRoute from "./components/PrivateRoute";
+import { AuthProvider } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function App() {
+function AppLayout() {
   return (
-    <BrowserRouter>
+    <PrivateRoute>
       <Header />
       <Menu />
 
@@ -28,9 +31,22 @@ function App() {
       </Routes>
 
       <Footer />
+    </PrivateRoute>
+  );
+}
 
-      <ToastContainer position="top-right" autoClose={3000} />
-    </BrowserRouter>
+function App() {
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/*" element={<AppLayout />} />
+        </Routes>
+
+        <ToastContainer position="top-right" autoClose={3000} />
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

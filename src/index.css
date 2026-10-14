@@ -1,11 +1,20 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
 }
 
-body {
-  font-family: "Montserrat", sans-serif;
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "Montserrat", sans-serif;
+  }
 }
 
 a {
@@ -702,6 +711,13 @@ button:hover {
 .contato__card-btn:hover {
   opacity: 0.9;
   transform: scale(1.05);
+}
+
+.menu__logout {
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
 }
 
 .footer {
