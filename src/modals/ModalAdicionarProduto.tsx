@@ -1,7 +1,8 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import { Input } from "../components/inputs/Input";
+import { Input } from "../components/ui/Input";
+import { Select } from "../components/ui/Select";
 import { useProdutoData } from "../hooks/useProdutoData";
 import { useAdicionarProdutoPedido } from "../hooks/useAdicionarProdutoPedido";
 import { formatBRL } from "../utils/format";
@@ -53,23 +54,23 @@ export function ModalAdicionarProduto({
           <FontAwesomeIcon icon={faXmark} onClick={closeModal} />
         </div>
         <form className="modal__form">
-          <label>Produto</label>
-          <select
+          <Select
+            label="Produto"
             value={produtoId}
             onChange={(e) => setProdutoId(e.target.value)}
-            style={{ padding: "10px", borderRadius: "10px" }}
-          >
-            <option value="">Selecione um produto</option>
-            {produtos?.map((produto) => (
-              <option key={produto.id} value={produto.id}>
-                {produto.nome} - {formatBRL(produto.preco)}
-              </option>
-            ))}
-          </select>
+            placeholder="Selecione um produto"
+            options={
+              produtos?.map((produto) => ({
+                value: String(produto.id),
+                label: `${produto.nome} - ${formatBRL(produto.preco)}`,
+              })) ?? []
+            }
+          />
           <Input
             label="Quantidade"
+            type="number"
             value={quantidade}
-            updateValue={(value) => setQuantidade(Number(value))}
+            onChange={(e) => setQuantidade(Number(e.target.value))}
           />
         </form>
         <Button fullWidth onClick={handleAdicionar} disabled={isPending}>

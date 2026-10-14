@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { Input } from "../components/inputs/Input";
+import { Input } from "../components/ui/Input";
 import {
   useProdutoDataMutate,
   useProdutoDataUpdate,
@@ -40,11 +40,11 @@ export function ModalProduto({ closeModal, produto }: ModalProps) {
       return;
     }
 
-     const data: ProdutoRequest = {
-       nome,
+    const data: ProdutoRequest = {
+      nome,
       preco: precoNum,
-       quantidade: Number(quantidade),
-     };
+      quantidade: Number(quantidade),
+    };
 
     if (isEdit && produto) {
       update({ id: produto.id, data });
@@ -68,16 +68,21 @@ export function ModalProduto({ closeModal, produto }: ModalProps) {
           <FontAwesomeIcon icon={faXmark} onClick={closeModal} />
         </div>
         <form className="modal__form">
-          <Input label="Nome" value={nome} updateValue={setNome} />
+          <Input
+            label="Nome"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+          />
           <Input
             label="Preço"
             value={preco}
-            updateValue={setPreco}
+            onChange={(e) => setPreco(e.target.value)}
           />
           <Input
             label="Quantidade"
+            type="number"
             value={quantidade}
-            updateValue={(value) => setQuantidade(Number(value))}
+            onChange={(e) => setQuantidade(Number(e.target.value))}
           />
         </form>
         <Button
