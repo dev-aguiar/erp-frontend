@@ -5,11 +5,21 @@ import {
   faUser,
   faUsers,
   faContactCard,
+  faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Menu = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
     <div className="menu__container">
       <Link to="/" className="menu__item">
@@ -35,6 +45,10 @@ const Menu = () => {
         <FontAwesomeIcon icon={faContactCard} className="menu__icon" />
         Contato
       </Link>
+      <button onClick={handleLogout} className="menu__item menu__logout">
+        <FontAwesomeIcon icon={faRightFromBracket} className="menu__icon" />
+        Sair
+      </button>
     </div>
   );
 };
