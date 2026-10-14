@@ -1,36 +1,61 @@
+import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faCubes } from "@fortawesome/free-solid-svg-icons";
 import Home from "./pages/Home";
-import Menu from "./components/Menu";
 import Contato from "./pages/Contato";
-import Footer from "./components/Footer";
 import Produtos from "./pages/Produtos";
 import Clientes from "./pages/Clientes";
 import Pedidos from "./pages/Pedidos";
 import Vendedores from "./pages/Vendedores";
 import Login from "./pages/Login";
+import Sidebar from "./components/Sidebar";
 import PrivateRoute from "./components/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function AppLayout() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <PrivateRoute>
-      <Header />
-      <Menu />
+      <div className="min-h-screen bg-slate-50 font-sans">
+        <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/produtos" element={<Produtos />} />
-        <Route path="/clientes" element={<Clientes />} />
-        <Route path="/pedidos" element={<Pedidos />} />
-        <Route path="/pedido" element={<Pedidos />} />
-        <Route path="/vendedores" element={<Vendedores />} />
-        <Route path="/contato" element={<Contato />} />
-      </Routes>
+        <div className="flex min-h-screen flex-col lg:pl-64">
+          {/* Topbar (mobile) */}
+          <header className="flex items-center gap-3 border-b border-slate-200 bg-white px-4 py-3 lg:hidden">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="text-slate-600"
+              aria-label="Abrir menu"
+            >
+              <FontAwesomeIcon icon={faBars} className="text-lg" />
+            </button>
+            <span className="flex items-center gap-2 text-sm font-semibold text-slate-900">
+              <FontAwesomeIcon icon={faCubes} className="text-indigo-600" />
+              ERP Dev Aguiar
+            </span>
+          </header>
 
-      <Footer />
+          <main className="flex-1 p-4 sm:p-6">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/produtos" element={<Produtos />} />
+              <Route path="/clientes" element={<Clientes />} />
+              <Route path="/pedidos" element={<Pedidos />} />
+              <Route path="/pedido" element={<Pedidos />} />
+              <Route path="/vendedores" element={<Vendedores />} />
+              <Route path="/contato" element={<Contato />} />
+            </Routes>
+          </main>
+
+          <footer className="border-t border-slate-200 px-6 py-4 text-center text-xs text-slate-400">
+            Criado por André Aguiar · 2025
+          </footer>
+        </div>
+      </div>
     </PrivateRoute>
   );
 }

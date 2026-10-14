@@ -2,6 +2,13 @@ import { useState } from "react";
 import { PedidoItens } from "./PedidoItens";
 import { Button } from "../ui/Button";
 import { Card } from "../ui/Card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faListUl,
+  faPlus,
+  faPen,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface PedidoCardProps {
   id: number;
@@ -77,27 +84,46 @@ export function PedidoCard({
         </div>
       )}
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 space-y-3 border-t border-slate-100 pt-3">
         <Button
           variant="ghost"
           size="sm"
+          fullWidth
           onClick={() => setMostrarItens((v) => !v)}
         >
+          <FontAwesomeIcon icon={faListUl} />
           {mostrarItens ? "Ocultar itens" : "Ver itens"}
         </Button>
-        <Button
-          variant="primary"
-          size="sm"
-          onClick={() => onAdicionarProduto(id)}
-        >
-          Adicionar Produto
-        </Button>
-        <Button variant="secondary" size="sm" onClick={onEditar}>
-          Editar
-        </Button>
-        <Button variant="danger" size="sm" onClick={onExcluir}>
-          Excluir
-        </Button>
+
+        <div className="flex items-center gap-2">
+          <Button
+            variant="primary"
+            size="sm"
+            className="flex-1"
+            onClick={() => onAdicionarProduto(id)}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+            Adicionar Produto
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={onEditar}
+            aria-label="Editar"
+            title="Editar"
+          >
+            <FontAwesomeIcon icon={faPen} />
+          </Button>
+          <Button
+            variant="danger"
+            size="sm"
+            onClick={onExcluir}
+            aria-label="Excluir"
+            title="Excluir"
+          >
+            <FontAwesomeIcon icon={faTrash} />
+          </Button>
+        </div>
       </div>
     </Card>
   );

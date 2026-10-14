@@ -33,51 +33,6 @@ img {
   min-height: 100svh;
 }
 
-.header {
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #6522ff;
-  z-index: 1;
-}
-
-.header__logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.header__link:hover {
-  color: #4c00ff;
-  transform: scale(1.1);
-}
-
-.menu__container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: #333;
-  padding: 10px 20px;
-}
-
-.menu__item {
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-  padding: 10px;
-  transition: 0.3s;
-}
-
-.menu__item:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 5px;
-}
-
-.menu__icon {
-  margin-right: 5px;
-}
-
 .home__container {
   display: grid;
   grid-template-rows: repeat(5, 1fr);
@@ -119,7 +74,6 @@ img {
   padding: 15px;
 }
 
-
 .produtos {
   padding: 20px;
   flex: 1;
@@ -152,7 +106,7 @@ img {
 
 .clientes__card {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
   gap: 20px;
   padding: 20px;
   justify-content: center;
@@ -171,7 +125,7 @@ img {
 
 .pedidos__card {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 20px;
   padding: 20px;
   justify-content: center;
@@ -396,29 +350,10 @@ img {
   cursor: pointer;
 }
 
-.footer {
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
-
 /*  mobile */
 @media (max-width: 768px) {
   .header {
     padding: 10px 16px;
-  }
-
-  .menu__container {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px 6px;
-    padding: 8px 10px;
-  }
-
-  .menu__item {
-    font-size: 14px;
-    padding: 8px 10px;
   }
 
   .home__container {
@@ -485,15 +420,6 @@ img {
 }
 
 @media (max-width: 400px) {
-  .menu__item {
-    font-size: 13px;
-    padding: 6px 8px;
-  }
-
-  .menu__icon {
-    margin-right: 3px;
-  }
-
   .produtos__header,
   .clientes__header,
   .pedidos__header,

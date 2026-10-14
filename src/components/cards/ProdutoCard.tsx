@@ -1,6 +1,8 @@
 import { formatBRL } from "../../utils/format";
 import { Button } from "../ui/Button";
 import { Card } from "../ui/Card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 interface ProdutoCardProps {
   id: number;
@@ -36,12 +38,24 @@ export function ProdutoCard({
         </div>
       </dl>
 
-      <div className="mt-4 flex flex-wrap justify-between gap-2">
-        <Button variant="secondary" size="sm" onClick={onEditar}>
-          Editar
+      <div className="mt-4 flex justify-between gap-2 border-t border-slate-100 pt-3">
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={onEditar}
+          aria-label="Editar"
+          title="Editar"
+        >
+          <FontAwesomeIcon icon={faPen} />
         </Button>
-        <Button variant="danger" size="sm" onClick={onExcluir}>
-          Excluir
+        <Button
+          variant="danger"
+          size="sm"
+          onClick={onExcluir}
+          aria-label="Excluir"
+          title="Excluir"
+        >
+          <FontAwesomeIcon icon={faTrash} />
         </Button>
       </div>
     </Card>
