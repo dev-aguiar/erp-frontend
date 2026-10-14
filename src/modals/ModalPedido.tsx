@@ -6,12 +6,14 @@ import {
 import { PedidoData, PedidoRequest } from "../interfaces/PedidoData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { DateInput, SelectInput } from "../components/inputs/Input";
+import { Input } from "../components/ui/Input";
+import { Select } from "../components/ui/Select";
 import { FormaPagamento } from "../enums/FormaPagamento";
 import { StatusPedido } from "../enums/StatusPedido";
 import { useClienteData } from "../hooks/useClienteData";
 import { useVendedorData } from "../hooks/useVendedorData";
 import { toast } from "react-toastify";
+import { Button } from "../components/ui/Button";
 
 interface ModalProps {
   closeModal(): void;
@@ -94,10 +96,10 @@ export function ModalPedido({ closeModal, pedido }: ModalProps) {
           <FontAwesomeIcon icon={faXmark} onClick={closeModal} />
         </div>
         <form className="modal__form">
-          <SelectInput
+          <Select
             label="Cliente"
             value={clienteId}
-            updateValue={setClienteId}
+            onChange={(e) => setClienteId(e.target.value)}
             options={
               clientesData?.map((cliente) => ({
                 value: String(cliente.id),
@@ -105,10 +107,10 @@ export function ModalPedido({ closeModal, pedido }: ModalProps) {
               })) ?? []
             }
           />
-          <SelectInput
+          <Select
             label="Vendedor"
             value={vendedorId}
-            updateValue={setVendedorId}
+            onChange={(e) => setVendedorId(e.target.value)}
             options={
               vendedoresData?.map((vendedor) => ({
                 value: String(vendedor.id),
@@ -116,27 +118,32 @@ export function ModalPedido({ closeModal, pedido }: ModalProps) {
               })) ?? []
             }
           />
-          <SelectInput
+          <Select
             label="Forma de Pagamento"
             value={formaPagamento}
-            updateValue={setFormaPagamento}
+            onChange={(e) => setFormaPagamento(e.target.value)}
             options={Object.values(FormaPagamento)}
           />
-          <DateInput
+          <Input
             label="Data do Pedido"
+            type="date"
             value={dataPedido}
-            updateValue={setDataPedido}
+            onChange={(e) => setDataPedido(e.target.value)}
           />
-          <SelectInput
+          <Select
             label="Status do Pedido"
             value={statusPedido}
-            updateValue={setStatusPedido}
+            onChange={(e) => setStatusPedido(e.target.value)}
             options={Object.values(StatusPedido)}
           />
         </form>
-        <button onClick={submit} className="modal__form-btn">
+        <Button
+          fullWidth
+          onClick={submit}
+          disabled={isPending || isUpdatePending}
+        >
           {isPending || isUpdatePending ? "Salvando..." : "Salvar"}
-        </button>
+        </Button>
       </div>
     </div>
   );

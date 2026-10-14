@@ -6,7 +6,8 @@ import {
 import { ClienteData, ClienteRequest } from "../interfaces/ClienteData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { Input } from "../components/inputs/Input";
+import { Input } from "../components/ui/Input";
+import { Button } from "../components/ui/Button";
 
 interface ModalProps {
   closeModal(): void;
@@ -52,14 +53,35 @@ export function ModalCliente({ closeModal, cliente }: ModalProps) {
           <FontAwesomeIcon icon={faXmark} onClick={closeModal} />
         </div>
         <form className="modal__form">
-          <Input label="Nome" value={nome} updateValue={setNome} />
-          <Input label="Email" value={email} updateValue={setEmail} />
-          <Input label="Telefone" value={telefone} updateValue={setTelefone} />
-          <Input label="Endereço" value={endereco} updateValue={setEndereco} />
+          <Input
+            label="Nome"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+          />
+          <Input
+            label="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            label="Telefone"
+            value={telefone}
+            onChange={(e) => setTelefone(e.target.value)}
+          />
+          <Input
+            label="Endereço"
+            value={endereco}
+            onChange={(e) => setEndereco(e.target.value)}
+          />
         </form>
-        <button onClick={submit} className="modal__form-btn">
+        <Button
+          fullWidth
+          onClick={submit}
+          disabled={isPending || isUpdatePending}
+        >
           {isPending || isUpdatePending ? "Salvando..." : "Salvar"}
-        </button>
+        </Button>
       </div>
     </div>
   );

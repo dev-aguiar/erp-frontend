@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { DateInput, Input } from "../components/inputs/Input";
+import { Input } from "../components/ui/Input";
 import {
   useVendedorDataMutate,
   useVendedorDataUpdate,
 } from "../hooks/usevendedorDataMutate";
 import { VendedorData, VendedorRequest } from "../interfaces/VendedorData";
 import { toast } from "react-toastify";
+import { Button } from "../components/ui/Button";
 
 interface ModalProps {
   closeModal(): void;
@@ -59,16 +60,25 @@ export function ModalVendedor({ closeModal, vendedor }: ModalProps) {
           <FontAwesomeIcon icon={faXmark} onClick={closeModal} />
         </div>
         <form className="modal__form">
-          <Input label="Nome" value={nome} updateValue={setNome} />
-          <DateInput
+          <Input
+            label="Nome"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+          />
+          <Input
             label="Data de Nascimento"
+            type="date"
             value={dataNascimento}
-            updateValue={setDataNascimento}
+            onChange={(e) => setDataNascimento(e.target.value)}
           />
         </form>
-        <button onClick={submit} className="modal__form-btn">
+        <Button
+          fullWidth
+          onClick={submit}
+          disabled={isPending || isUpdatePending}
+        >
           {isPending || isUpdatePending ? "Salvando..." : "Salvar"}
-        </button>
+        </Button>
       </div>
     </div>
   );

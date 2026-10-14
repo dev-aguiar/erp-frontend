@@ -1,5 +1,14 @@
 import { useState } from "react";
 import { PedidoItens } from "./PedidoItens";
+import { Button } from "../ui/Button";
+import { Card } from "../ui/Card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faListUl,
+  faPlus,
+  faPen,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface PedidoCardProps {
   id: number;
@@ -37,31 +46,85 @@ export function PedidoCard({
   ).toLocaleDateString();
 
   return (
-    <div className="single__card">
-      <div className="single__card-customer">
-        <p>Pedido: {id}</p>
-        <b>Cliente:</b>
-        <p>ID: {cliente.id}</p>
-        <p>Nome: {cliente.nome}</p>
-        <b>Vendedor:</b>
-        <p>ID: {vendedor.id}</p>
-        <p>Nome: {vendedor.nome}</p>
-        <b>Data: {dataFormatada}</b>
-        <b>Pagamento: {formaPagamento}</b>
-        <b>Status: {statusPedido}</b>
+    <Card title={`Pedido #${id}`}>
+      <dl className="space-y-2 text-sm">
+        <div className="flex justify-between gap-4">
+          <dt className="text-slate-500">Cliente</dt>
+          <dd className="text-right font-medium text-slate-900">
+            {cliente.id} - {cliente.nome}
+          </dd>
+        </div>
+        <div className="flex justify-between gap-4">
+          <dt className="text-slate-500">Vendedor</dt>
+          <dd className="text-right font-medium text-slate-900">
+            {vendedor.id} - {vendedor.nome}
+          </dd>
+        </div>
+        <div className="flex justify-between gap-4">
+          <dt className="text-slate-500">Data</dt>
+          <dd className="font-medium text-slate-900">{dataFormatada}</dd>
+        </div>
+        <div className="flex justify-between gap-4">
+          <dt className="text-slate-500">Pagamento</dt>
+          <dd className="font-medium text-slate-900">{formaPagamento}</dd>
+        </div>
+        <div className="flex justify-between gap-4">
+          <dt className="text-slate-500">Status</dt>
+          <dd>
+            <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs font-medium text-indigo-700">
+              {statusPedido}
+            </span>
+          </dd>
+        </div>
+      </dl>
 
-        {mostrarItens && <PedidoItens pedidoId={id} />}
-      </div>
-      <div className="single__card-actions">
-        <button onClick={() => setMostrarItens((v) => !v)}>
+      {mostrarItens && (
+        <div className="mt-4 border-t border-slate-100 pt-3">
+          <PedidoItens pedidoId={id} />
+        </div>
+      )}
+
+      <div className="mt-4 space-y-3 border-t border-slate-100 pt-3">
+        <Button
+          variant="ghost"
+          size="sm"
+          fullWidth
+          onClick={() => setMostrarItens((v) => !v)}
+        >
+          <FontAwesomeIcon icon={faListUl} />
           {mostrarItens ? "Ocultar itens" : "Ver itens"}
-        </button>
-        <button onClick={() => onAdicionarProduto(id)}>Adicionar Produto</button>
-        <button onClick={onEditar}>Editar</button>
-        <button className="btn-excluir" onClick={onExcluir}>
-          Excluir
-        </button>
+        </Button>
+
+        <div className="flex items-center gap-2">
+          <Button
+            variant="primary"
+            size="sm"
+            className="flex-1"
+            onClick={() => onAdicionarProduto(id)}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+            Adicionar Produto
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={onEditar}
+            aria-label="Editar"
+            title="Editar"
+          >
+            <FontAwesomeIcon icon={faPen} />
+          </Button>
+          <Button
+            variant="danger"
+            size="sm"
+            onClick={onExcluir}
+            aria-label="Excluir"
+            title="Excluir"
+          >
+            <FontAwesomeIcon icon={faTrash} />
+          </Button>
+        </div>
       </div>
-    </div>
+    </Card>
   );
 }
