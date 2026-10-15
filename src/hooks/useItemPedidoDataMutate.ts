@@ -10,7 +10,7 @@ export interface ItemPedidoRequest {
   valorUnitario: number;
 }
 
-const postData = async (data: ItemPedidoRequest): AxiosPromise<any> => {
+const postData = async (data: ItemPedidoRequest): AxiosPromise<unknown> => {
   const response = axios.post(
     API_URL + "/pedidos/" + data.pedidoId + "/itens",
     data

@@ -4,7 +4,7 @@ import { PedidoRequest } from "../interfaces/PedidoData";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const postData = async (data: PedidoRequest): AxiosPromise<any> => {
+const postData = async (data: PedidoRequest): AxiosPromise<unknown> => {
   const response = axios.post(API_URL + "/pedidos", data);
   return response;
 };
@@ -25,7 +25,7 @@ export function usePedidoDataMutate() {
 const updateData = async (payload: {
   id: number;
   data: PedidoRequest;
-}): AxiosPromise<any> => {
+}): AxiosPromise<unknown> => {
   const response = axios.put(API_URL + "/pedidos/" + payload.id, payload.data);
   return response;
 };
