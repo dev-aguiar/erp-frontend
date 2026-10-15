@@ -65,7 +65,7 @@ export function ModalPedido({ closeModal, pedido }: ModalProps) {
       toast.success(isEdit ? "Pedido atualizado!" : "Pedido cadastrado!");
       closeModal();
     }
-  }, [isSuccess, isUpdateSuccess, closeModal]);
+  }, [isSuccess, isUpdateSuccess, closeModal, isEdit]);
 
   const submit = () => {
     if (!clienteId || !vendedorId) {
