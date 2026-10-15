@@ -4,7 +4,7 @@ import { VendedorRequest } from "../interfaces/VendedorData";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const postData = async (data: VendedorRequest): AxiosPromise<any> => {
+const postData = async (data: VendedorRequest): AxiosPromise<unknown> => {
   const response = axios.post(API_URL + "/vendedores", data);
   return response;
 };
@@ -25,7 +25,7 @@ export function useVendedorDataMutate() {
 const updateData = async (payload: {
   id: number;
   data: VendedorRequest;
-}): AxiosPromise<any> => {
+}): AxiosPromise<unknown> => {
   const response = axios.put(
     API_URL + "/vendedores/" + payload.id,
     payload.data

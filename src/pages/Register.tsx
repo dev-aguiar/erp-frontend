@@ -1,5 +1,6 @@
 import { useState, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCubes, faCheck, faUserPlus } from "@fortawesome/free-solid-svg-icons";
@@ -36,8 +37,8 @@ const Register = () => {
                     toast.success("Conta criada! Faça login para continuar.");
                     navigate("/login");
                 },
-                onError: (error: any) => {
-                    if (error?.response?.status === 409) {
+                onError: (error: unknown) => {
+                    if (axios.isAxiosError(error) && error.response?.status === 409) {
                         toast.error("Esse login já está em uso.");
                     } else {
                         toast.error("Não foi possível criar a conta.");

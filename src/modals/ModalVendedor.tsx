@@ -50,7 +50,7 @@ export function ModalVendedor({ closeModal, vendedor }: ModalProps) {
       toast.success(isEdit ? "Vendedor atualizado com sucesso!" : "Vendedor cadastrado!")
       closeModal();
     }
-  }, [isSuccess, isUpdateSuccess, closeModal]);
+  }, [isSuccess, isUpdateSuccess, closeModal, isEdit]);
 
   return (
     <div className="modal__container">

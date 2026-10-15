@@ -4,7 +4,7 @@ import { ClienteRequest } from "../interfaces/ClienteData";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const postData = async (data: ClienteRequest): AxiosPromise<any> => {
+const postData = async (data: ClienteRequest): AxiosPromise<unknown> => {
   const response = axios.post(API_URL + "/clientes", data);
   return response;
 };
@@ -25,7 +25,7 @@ export function useClienteDataMutate() {
 const updateData = async (payload: {
   id: number;
   data: ClienteRequest;
-}): AxiosPromise<any> => {
+}): AxiosPromise<unknown> => {
   const response = axios.put(
     API_URL + "/clientes/" + payload.id,
     payload.data
